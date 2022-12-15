@@ -11,6 +11,7 @@
     <style>
         #image-list {
             display: grid;
+            margin-top: 1em;
             grid-template-columns: repeat(4, 1fr);
             gap: 1em;
         }
@@ -32,6 +33,10 @@
     <header>
         <h1>{{ type_jp }}</h1>
     </header>
+    <div id="selector">
+        <a href="/display-images?type=upload">アップロード画像</a>
+        <a href="/display-images?type=grayscale">グレースケール画像</a>
+    </div>
     <div id="image-list">
         {% for path in images %}
         <img src="{{ path }}"></img>
