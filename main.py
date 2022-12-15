@@ -4,10 +4,12 @@ import os
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False  # 日本語などのASCII以外の文字列を返したい場合は、こちらを設定しておく
 
+UPLOAD_PATH = './static/images/upload'
+
 # http://127.0.0.1:5000/address
 @app.route('/display-images', methods=["GET"])
 def address_get():
-    files = os.listdir('./images/upload')
+    files = [os.path.join(UPLOAD_PATH, name) for name in os.listdir(UPLOAD_PATH)]
     print(files)
     return render_template("display-images.html", images=files)
 
