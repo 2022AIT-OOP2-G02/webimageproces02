@@ -8,12 +8,34 @@
     <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
 
+    <style>
+        #image-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1em;
+        }
+
+        #image-list>img {
+            height: 10em;
+            overflow: hidden;
+            object-fit: contain;
+            height: 10em;
+            width: 10em;
+            background: #eee;
+            border-radius: 0.5em;
+        }
+    </style>
+
     <title>アップロード画像一覧</title>
 </head>
 <body>
-    <header>アップロード画像一覧</header>
-    {% for path in images %}
-    <img src="{{ path }}"></img>
-    {% endfor %}
+    <header>
+        <h1>アップロード画像一覧</h1>
+    </header>
+    <div id="image-list">
+        {% for path in images %}
+        <img src="{{ path }}"></img>
+        {% endfor %}
+    </div>
 </body>
 </html>
