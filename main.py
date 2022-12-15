@@ -15,7 +15,10 @@ def address_get():
         type_jp = 'アップロード画像'
     elif type == 'grayscale':
         folder_path = os.path.join(IMAGES_PATH, 'grayscale')
-        type_jp = 'グレースケール画像'
+        type_jp = 'グレースケール化画像'
+    elif type == 'contour-extraction':
+        folder_path = os.path.join(IMAGES_PATH, 'contour-extraction')
+        type_jp = '輪郭抽出画像'
     else:
         return redirect('/display-images?type=upload')
 
