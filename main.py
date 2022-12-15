@@ -4,15 +4,17 @@ import os
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False  # 日本語などのASCII以外の文字列を返したい場合は、こちらを設定しておく
 
+IMAGES_PATH = './static/images'
+
 # http://127.0.0.1:5000/address
 @app.route('/display-images', methods=["GET"])
 def address_get():
     type = request.args.get('type', None)
     if type == 'upload':
-        folder_path = './static/images/upload'
+        folder_path = os.path.join(IMAGES_PATH, 'upload')
         type_jp = 'アップロード画像'
     elif type == 'grayscale':
-        folder_path = './static/images/grayscale'
+        folder_path = os.path.join(IMAGES_PATH, 'grayscale')
         type_jp = 'グレースケール画像'
     else:
         return redirect('/display-images?type=upload')
