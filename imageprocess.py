@@ -1,14 +1,33 @@
 #import sys
 import time
-#import logging
+import logging
+import cv2
+import sys
 import os
 import datetime
+
 from watchdog.observers import Observer
-#from watchdog.events import LoggingEventHandler
+from watchdog.events import LoggingEventHandler
 from watchdog.events import RegexMatchingEventHandler
 
-#grayscale('../GitHub/webimageproces02/input_image/')
-#nitika
+
+def Canny_imagecreate(filepath):
+    #ファイルパスからファイル名取得
+    #拡張子なし
+    inputname_without_jpg = os.path.splitext(os.path.basename(filepath))[0]
+
+    #'image.jpgを読み込む'
+    img = cv2.imread(filepath)
+
+    # 画像ファイルが正常に読み込めなかった場合、プログラムを終了する。
+    if img is None:
+        sys.exit("Could not read the image.")
+    # Canny : Canny法を用いて、エッジ検出を行う
+    img_Canny = cv2.Canny(img, 50, 100)
+    #output.jpgを出力
+    cv2.imwrite(inputname_without_jpg + '_Canny_Flter.jpg', img_Canny)
+
+
 
 class MyFileWatchHandler(RegexMatchingEventHandler):
     def __init__(self, regexes):
@@ -37,7 +56,9 @@ class MyFileWatchHandler(RegexMatchingEventHandler):
         filename = os.path.basename(filepath)
         print(f"{datetime.datetime.now()} {filename} moved")
 
+    
 if __name__ == "__main__":
+    Canny_imagecreate('input_image/camera_capture.png')
     # 対象ディレクトリ
     DIR_WATCH = './input_image'
     # 対象ファイルパスのパターン
@@ -50,15 +71,18 @@ if __name__ == "__main__":
 
     event_handler = MyFileWatchHandler(PATTERNS)
     
+
     observer = Observer()
     observer.schedule(event_handler, DIR_WATCH, recursive=True)
     observer.start()
     try:
         while True:
             time.sleep(1)
+            
     except KeyboardInterrupt:
         observer.stop()
     observer.join()
+
     
     #logging.basicConfig(level=logging.INFO,
       #                  format='%(asctime)s - %(message)s',
