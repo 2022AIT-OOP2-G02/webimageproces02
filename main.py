@@ -19,8 +19,9 @@ def address_get():
     else:
         return redirect('/display-images?type=upload')
 
-    files = [os.path.join(folder_path, name) for name in os.listdir(folder_path)]
-    return render_template("display-images.html", images=files, type_jp=type_jp)
+    files = sorted(os.listdir(folder_path))
+    paths = [os.path.join(folder_path, name) for name in files]
+    return render_template("display-images.html", images=paths, type_jp=type_jp)
 
 # http://127.0.0.1:5000/
 @app.route('/')
