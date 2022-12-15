@@ -19,7 +19,7 @@ class MyFileWatchHandler(RegexMatchingEventHandler):
         filepath = event.src_path
         filename = os.path.basename(filepath)
         print(f"{datetime.datetime.now()} {filename} created")
-         # ファイル変更時の動作
+        # ファイル変更時の動作
     def on_modified(self, event):
         filepath = event.src_path
         filename = os.path.basename(filepath)
